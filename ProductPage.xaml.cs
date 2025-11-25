@@ -23,6 +23,13 @@ namespace Vakhitova41
         public ProductPage()
         {
             InitializeComponent();
+
+            // добавляем строки
+                // загрузить в список из бд
+            var currentProducts = Vakhitova41Entities.GetContext().Product.ToList();
+            // связать с листвью
+            ProductListView.ItemsSource = currentProducts;
+            // добавили строки
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

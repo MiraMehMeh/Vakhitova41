@@ -6,9 +6,59 @@
       xmlns:local="clr-namespace:Vakhitova41"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProductPage" FontFamily="Comic Sans MS">
+      Title="ProductPage" FontFamily="Comic Sans MS"
+      MinHeight="800"
+      MinWidth="800">
 
     <Grid>
-        <Button Content="Вперед" Click="Button_Click"></Button>
+        <ListView Name="ProductListView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="220"/>
+                            <ColumnDefinition Width="800"/>
+                            <ColumnDefinition Width="120"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="75"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Image Width="220" Grid.RowSpan="4" Grid.Column="0" Stretch="UniformToFill" HorizontalAlignment="Center">
+                            <Image.Source>
+                                <Binding Path="ProductPhotoPath">
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>
+                                            /pics/picture.png
+                                        </ImageSource>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </Image.Source>
+                        </Image>
+                        
+                        <TextBlock Text="{Binding ProductName}" FontWeight="Bold" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"
+                            FontSize="20" TextWrapping="Wrap"></TextBlock>
+
+                        <TextBlock Text="{Binding ProductDescription}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left"
+                            FontSize="20"></TextBlock>
+
+                        <TextBlock Text="{Binding ProductManufacturer}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left"
+                            FontSize="20"></TextBlock>
+
+                        <TextBlock Text="{Binding ProductCost, StringFormat={}{0:0} рублей}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left"
+                            FontSize="20"></TextBlock>
+
+                        <TextBlock Text="{Binding ProductDiscountAmount, StringFormat=Cкидка}" Opacity="{Binding ProductDiscountAmount}" Grid.Column="2" Grid.RowSpan="3" HorizontalAlignment="Left" FontSize="20"></TextBlock>
+                        <TextBlock Text="{Binding ProductDiscountAmount}" Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" HorizontalAlignment="Left" FontSize="40"></TextBlock>
+                        <TextBlock Text="{Binding ProductDiscountAmount, StringFormat=% }" Opacity="{Binding ProductDiscountAmount}" Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" HorizontalAlignment="Center" FontSize="40"></TextBlock>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>
