@@ -149,6 +149,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App.Config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -161,9 +162,6 @@
     <None Include="Vakhitova41Model.edmx.diagram">
       <DependentUpon>Vakhitova41Model.edmx</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="pics\icon.ico" />
@@ -181,19 +179,21 @@
     <Resource Include="imgs\H782T5.jpg" />
     <Resource Include="imgs\J384T6.jpg" />
     <Resource Include="imgs\А112Т4.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Vakhitova41Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Vakhitova41Model.Context.cs</LastGenOutput>
       <DependentUpon>Vakhitova41Model.edmx</DependentUpon>
+      <LastGenOutput>Vakhitova41Model.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Vakhitova41Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Vakhitova41Model.edmx</DependentUpon>
       <LastGenOutput>Vakhitova41Model.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

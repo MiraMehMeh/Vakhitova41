@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Vakhitova41" FontFamily="Comic Sans MS" Icon="/pics/icon.ico"
         MinWidth="1200" 
-        MinHeight="700">
+        MinHeight="800">
         
     <Grid>
         <Grid.RowDefinitions>

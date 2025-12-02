@@ -25,8 +25,6 @@ namespace Vakhitova41
 
             return _context;
         }
-        //
-
         public Vakhitova41Entities()
             : base("name=Vakhitova41Entities")
         {

@@ -43,6 +43,7 @@ namespace Vakhitova41
                 return "imgs/" + ProductPhoto;
             }
         }
+
         public string ProductStatus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
