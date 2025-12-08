@@ -23,6 +23,14 @@ namespace Vakhitova41
         public ProductPage()
         {
             InitializeComponent();
+            FIOTB.Text = "Гость";
+            RoleTB.Text = "Гость";
+
+            UpdateProducts();
+        }
+        public ProductPage(User user)
+        {
+            InitializeComponent();
 
             // добавляем строки
                 // загрузить в список из бд
@@ -36,6 +44,21 @@ namespace Vakhitova41
             // вызываем метод
             UpdateProducts();
 
+            // FIOTB - текстбокс для отображ ФИО
+            FIOTB.Text = user.UserSurname + " " + user.UserName + " " + user.UserPatronymic;
+
+            switch (user.UserRole)
+            {
+                case 1:
+                    // RoleTB - текстбокс для отобр роли
+                    RoleTB.Text = "Администратор"; break;
+
+                case 2:
+                    RoleTB.Text = "Менеджер"; break;
+
+                case 3:
+                    RoleTB.Text = "Клиент"; break;
+            }
         }
 
         private void UpdateItemsCount()
