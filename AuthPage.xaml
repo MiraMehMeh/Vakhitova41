@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Vakhitova41"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AuthPage">
+      Title="AuthPage" FontFamily="Comic Sans MS">
 
     <Grid>
         <Grid.RowDefinitions>

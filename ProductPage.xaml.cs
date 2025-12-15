@@ -20,6 +20,12 @@ namespace Vakhitova41
     /// </summary>
     public partial class ProductPage : Page
     {
+        private User _currentUser;
+        private List<Product> selectedProducts = new List<Product>();
+        private List<OrderProduct> selectedOrderProducts = new List<OrderProduct>();
+        private int newOrderID = -1; // Временный ID
+
+
         public ProductPage()
         {
             InitializeComponent();
@@ -32,8 +38,11 @@ namespace Vakhitova41
         {
             InitializeComponent();
 
+            
+            _currentUser = user; // СОХРАНЯЕМ ПОЛЬЗОВАТЕЛЯ
+
             // добавляем строки
-                // загрузить в список из бд
+            // загрузить в список из бд
             var currentProducts = Vakhitova41Entities.GetContext().Product.ToList();
             // связать с листвью
             ProductListView.ItemsSource = currentProducts;
@@ -59,6 +68,23 @@ namespace Vakhitova41
                 case 3:
                     RoleTB.Text = "Клиент"; break;
             }
+        }
+
+        public void ResetOrder()
+        {
+            // Очищаем списки заказа
+            if (selectedOrderProducts != null)
+                selectedOrderProducts.Clear();
+
+            if (selectedProducts != null)
+                selectedProducts.Clear();
+
+            // Сбрасываем временный ID
+            newOrderID = -1;
+
+            // Скрываем кнопку "Посмотреть заказ"
+            ViewOrderBtn.Visibility = Visibility.Collapsed;
+
         }
 
         private void UpdateItemsCount()
@@ -147,6 +173,80 @@ namespace Vakhitova41
         private void ComboType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateProducts();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (ProductListView.SelectedIndex >= 0)
+            {
+                var prod = ProductListView.SelectedItem as Product;
+                selectedProducts.Add(prod);
+
+                var newOrderProd = new OrderProduct(); // новый заказ
+                newOrderProd.OrderID = newOrderID;
+
+                // номер продукта в новую запись
+                newOrderProd.ProductArticleNumber = prod.ProductArticleNumber;
+                newOrderProd.Amount = 1;
+
+                // Проверяем, есть ли уже такой товар в заказе
+                var selOP = selectedOrderProducts.Where(p =>
+                    p.ProductArticleNumber == prod.ProductArticleNumber);
+
+                if (selOP.Count() == 0)
+                {
+                    selectedOrderProducts.Add(newOrderProd);
+                }
+                else
+                {
+                    foreach (OrderProduct p in selectedOrderProducts)
+                    {
+                        if (p.ProductArticleNumber == prod.ProductArticleNumber)
+                            p.Amount++; 
+                    }
+                }
+            }
+
+            ViewOrderBtn.Visibility = Visibility.Visible;
+            ProductListView.SelectedIndex = -1;
+        }
+
+        private void ViewOrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Убираем дубликаты, если они есть
+                selectedProducts = selectedProducts.Distinct().ToList();
+
+                // Проверяем, есть ли товары в заказе
+                if (selectedProducts == null || selectedProducts.Count == 0)
+                {
+                    MessageBox.Show("Добавьте товары в заказ!", "Пустой заказ",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Передаем пользователя, если авторизован
+                OrderWindow orderWindow = new OrderWindow(
+                    selectedOrderProducts,
+                    selectedProducts,
+                    _currentUser);
+
+                // Открываем окно заказа как диалог и получаем результат
+                bool? result = orderWindow.ShowDialog();
+
+                // Если заказ успешно сохранен (окно закрыто с true)
+                if (result == true)
+                {
+                    // Сбрасываем состояние заказа
+                    ResetOrder();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при открытии заказа: {ex.Message}", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

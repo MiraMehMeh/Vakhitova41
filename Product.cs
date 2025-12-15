@@ -44,6 +44,8 @@ namespace Vakhitova41
             }
         }
 
+        public int Quantity { get; set; } = 1;
+
         public string ProductStatus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

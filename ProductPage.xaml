@@ -83,6 +83,12 @@
         
         
         <ListView Name="ProductListView" Grid.Row="2" Grid.ColumnSpan="4">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить к заказу" Click="MenuItem_Click"></MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -131,5 +137,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <Button Name="ViewOrderBtn" Content="Посмотреть заказ" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right"
+                Click="ViewOrderBtn_Click" Visibility="Collapsed" FontSize="20"></Button>
     </Grid>
 </Page>

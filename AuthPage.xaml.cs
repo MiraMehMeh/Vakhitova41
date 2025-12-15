@@ -219,7 +219,6 @@ namespace Vakhitova41
             }
         }
 
-        // Метод для скрытия капчи
         private void HideCaptcha()
         {
             BorderCaptcha.Visibility = Visibility.Hidden;
